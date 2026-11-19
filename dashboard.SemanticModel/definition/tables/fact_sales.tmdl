@@ -1,0 +1,198 @@
+table fact_sales
+	lineageTag: 8ae5566b-6270-47c3-ac3a-345243593150
+
+	measure 'Total Revenue' = SUM ( fact_sales[revenue] )
+		formatString: $#,0
+		lineageTag: c769702e-7458-4967-8926-2086df25dde3
+
+	measure 'Total Orders' = DISTINCTCOUNT ( fact_sales[order_id] )
+		formatString: #,0
+		lineageTag: 26a7a703-7dd0-449b-ae4f-42242c86bfde
+
+	measure 'Units Sold' = SUM ( fact_sales[quantity] )
+		formatString: #,0
+		lineageTag: 7062fe8b-f000-43a6-ae3b-8b338a76e23b
+
+	measure 'Avg Order Value' = DIVIDE ( [Total Revenue], [Total Orders] )
+		formatString: $#,0.00
+		lineageTag: 35bb2806-7832-40ee-bdc6-972f4dae8866
+
+	measure 'Cumulative Revenue' =
+			CALCULATE (
+			    [Total Revenue],
+			    FILTER (
+			        ALLSELECTED ( 'Calendar'[Date] ),
+			        'Calendar'[Date] <= MAX ( 'Calendar'[Date] )
+			    )
+			)
+		formatString: $#,0
+		lineageTag: fcd4f666-0641-4285-8cd3-64d8155f3106
+
+	column order_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 4d048eef-a9dd-4ec9-8a73-0064923bff26
+		summarizeBy: sum
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column item_id
+		dataType: int64
+		formatString: 0
+		lineageTag: c90b59c3-a17e-4d6e-9225-10ad6ae24fbe
+		summarizeBy: sum
+		sourceColumn: item_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 5ad05573-199c-447c-8421-25652c649c73
+		summarizeBy: none
+		sourceColumn: order_date
+
+		variation Variation
+			isDefault
+			relationship: df5ec71d-e4de-419e-af2e-2407ef900f60
+			defaultHierarchy: LocalDateTable_13b1d692-a31a-4e1f-b01b-9d5204f46a0e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column order_status
+		dataType: int64
+		formatString: 0
+		lineageTag: 5fe83c59-c1d9-4fc3-ab90-520122d6bd43
+		summarizeBy: sum
+		sourceColumn: order_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 943b22e1-e454-4492-a97c-5d6f7bb48d5d
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 2088d51e-26fa-44ba-b740-534982305b4e
+		summarizeBy: none
+		sourceColumn: store_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_name
+		dataType: string
+		lineageTag: 42a71d10-dd87-4b3e-b750-66d37c8b7c43
+		summarizeBy: none
+		sourceColumn: store_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_city
+		dataType: string
+		lineageTag: d4c6cc51-7f0e-4101-a431-954f1b82d066
+		summarizeBy: none
+		sourceColumn: store_city
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_state
+		dataType: string
+		lineageTag: 02a3a9e2-91bb-43af-b058-e728b308e1d1
+		summarizeBy: none
+		sourceColumn: store_state
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 2013721e-ed5d-439e-91a9-56a6b0053cd1
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_name
+		dataType: string
+		lineageTag: 2f2d9af9-215f-430a-b233-e1afd0a24f56
+		summarizeBy: none
+		sourceColumn: product_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column brand_name
+		dataType: string
+		lineageTag: 4f92680c-0f75-4fab-81fd-a1346eff341f
+		summarizeBy: none
+		sourceColumn: brand_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_name
+		dataType: string
+		lineageTag: 4a86a8ef-bf86-42a2-a7f2-46257c89feec
+		summarizeBy: none
+		sourceColumn: category_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 6bd5de0e-1e4c-4c9d-90e6-514e50bbb297
+		summarizeBy: sum
+		sourceColumn: quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column list_price
+		dataType: double
+		lineageTag: ac79925d-184a-41f1-8bf2-435587abafb4
+		summarizeBy: sum
+		sourceColumn: list_price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column discount
+		dataType: double
+		lineageTag: 13619f9a-61c1-40c1-986d-08195b9c0d6f
+		summarizeBy: sum
+		sourceColumn: discount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column revenue
+		dataType: double
+		lineageTag: e61a3060-0d04-4885-b39c-67e4fabaa0ed
+		summarizeBy: sum
+		sourceColumn: revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fact_sales = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("olympic-data-ondemand.sql.azuresynapse.net", "bikestore_db"),
+				    dbo_fact_sales = Source{[Schema="dbo",Item="fact_sales"]}[Data]
+				in
+				    dbo_fact_sales
+
+	annotation PBI_ResultType = Table
+

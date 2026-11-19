@@ -1,0 +1,58 @@
+table daily_sales_summary
+	lineageTag: 737ddfc0-fecb-446d-8b4f-df005d24960c
+
+	column order_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: f408a0b8-d84b-433d-b09f-f899c4478a93
+		summarizeBy: none
+		sourceColumn: order_date
+
+		variation Variation
+			isDefault
+			relationship: e21eeba9-cbf9-4d2f-996b-e78283a46572
+			defaultHierarchy: LocalDateTable_ccfcb1d5-2a16-448c-94b4-b837c7b493fb.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column total_revenue
+		dataType: double
+		lineageTag: bf1e1f91-c2ec-4f39-850f-951c2be8419a
+		summarizeBy: sum
+		sourceColumn: total_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column orders
+		dataType: int64
+		formatString: 0
+		lineageTag: 555733e7-2171-48f9-9b36-544a32c2013f
+		summarizeBy: sum
+		sourceColumn: orders
+
+		annotation SummarizationSetBy = Automatic
+
+	column units_sold
+		dataType: int64
+		formatString: 0
+		lineageTag: 5913b3dd-56d6-4c67-98da-df9cc67aeb30
+		summarizeBy: sum
+		sourceColumn: units_sold
+
+		annotation SummarizationSetBy = Automatic
+
+	partition daily_sales_summary = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("olympic-data-ondemand.sql.azuresynapse.net", "bikestore_db"),
+				    dbo_daily_sales_summary = Source{[Schema="dbo",Item="daily_sales_summary"]}[Data]
+				in
+				    dbo_daily_sales_summary
+
+	annotation PBI_ResultType = Table
+

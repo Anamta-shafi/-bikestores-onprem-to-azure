@@ -1,0 +1,113 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 286.29943130500021,
+            "y": 504.94837326527045
+          },
+          "nodeIndex": "customer_lifetime_value",
+          "nodeLineageTag": "c1e30a52-f3a2-43b0-a24b-8feac0627816",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 854.04238442130145,
+            "y": 339.47418663263522
+          },
+          "nodeIndex": "daily_sales_summary",
+          "nodeLineageTag": "737ddfc0-fecb-446d-8b4f-df005d24960c",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 334.16920539022675,
+            "y": 151.23195712625721
+          },
+          "nodeIndex": "fact_sales",
+          "nodeLineageTag": "8ae5566b-6270-47c3-ac3a-345243593150",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1138.0423844213014,
+            "y": 315.47418663263522
+          },
+          "nodeIndex": "monthly_sales_summary",
+          "nodeLineageTag": "12ef2b87-3227-47de-9bdc-a03c1cadb684",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 50,
+            "y": -50
+          },
+          "nodeIndex": "sales_by_store",
+          "nodeLineageTag": "ebd186a9-91a6-401c-a778-87b014fb40f4",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 620.04238442130145,
+            "y": 216.79118992835544
+          },
+          "nodeIndex": "top_products",
+          "nodeLineageTag": "5626b0b9-3913-4a8c-96b6-42534302b3cc",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1372.0423844213014,
+            "y": 327.47418663263522
+          },
+          "nodeIndex": "Calendar",
+          "nodeLineageTag": "2077a56e-a31e-4094-bccd-afdd6992afeb",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

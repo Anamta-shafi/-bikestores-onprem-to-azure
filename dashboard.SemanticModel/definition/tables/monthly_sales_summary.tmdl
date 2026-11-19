@@ -1,0 +1,76 @@
+table monthly_sales_summary
+	lineageTag: 12ef2b87-3227-47de-9bdc-a03c1cadb684
+
+	column month_start
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: c1b0bda5-0e7d-462c-b04c-2dc09da9e10d
+		summarizeBy: none
+		sourceColumn: month_start
+
+		variation Variation
+			isDefault
+			relationship: 9bad13b8-25a1-4513-abdc-551fe4a9ef1b
+			defaultHierarchy: LocalDateTable_8a7447d6-e6d2-4a4a-bea7-fd96c356ba46.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column total_revenue
+		dataType: double
+		lineageTag: 22b31db5-2398-490d-a038-809e4ba44b25
+		summarizeBy: sum
+		sourceColumn: total_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column orders
+		dataType: int64
+		formatString: 0
+		lineageTag: 0f058f80-2299-458b-9abe-abebd7d175f2
+		summarizeBy: sum
+		sourceColumn: orders
+
+		annotation SummarizationSetBy = Automatic
+
+	column units_sold
+		dataType: int64
+		formatString: 0
+		lineageTag: fb77ee03-0b47-4410-9794-08aa29814eb9
+		summarizeBy: sum
+		sourceColumn: units_sold
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: ea693b30-4f9a-4b50-8091-20899086dfef
+		summarizeBy: sum
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column month
+		dataType: int64
+		formatString: 0
+		lineageTag: c951d5c0-0bf2-411a-a7e0-2718ed53b247
+		summarizeBy: sum
+		sourceColumn: month
+
+		annotation SummarizationSetBy = Automatic
+
+	partition monthly_sales_summary = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("olympic-data-ondemand.sql.azuresynapse.net", "bikestore_db"),
+				    dbo_monthly_sales_summary = Source{[Schema="dbo",Item="monthly_sales_summary"]}[Data]
+				in
+				    dbo_monthly_sales_summary
+
+	annotation PBI_ResultType = Table
+

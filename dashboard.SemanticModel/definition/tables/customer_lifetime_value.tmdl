@@ -1,0 +1,127 @@
+table customer_lifetime_value
+	lineageTag: c1e30a52-f3a2-43b0-a24b-8feac0627816
+
+	measure 'Lifetime Value' = SUM ( customer_lifetime_value[lifetime_value] )
+		formatString: $#,0
+		lineageTag: 3c7d9a51-8e2b-4f6d-b1a0-6c9e4d2f8b37
+
+	column customer_id
+		dataType: int64
+		formatString: 0
+		lineageTag: e5bdd18b-1b6e-4f51-88f2-82468ae6127b
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column lifetime_value
+		dataType: double
+		lineageTag: 8eabb96d-91f1-4e0e-b834-e79e40c5217d
+		summarizeBy: sum
+		sourceColumn: lifetime_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column total_orders
+		dataType: int64
+		formatString: 0
+		lineageTag: 69f90472-c58f-4e9b-8eb9-06c92ef78dc6
+		summarizeBy: sum
+		sourceColumn: total_orders
+
+		annotation SummarizationSetBy = Automatic
+
+	column first_order_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 639475f5-4d69-4bab-a3e0-0f52669eb161
+		summarizeBy: none
+		sourceColumn: first_order_date
+
+		variation Variation
+			isDefault
+			relationship: ef62ca01-97d8-4d35-8401-efb6c642ac61
+			defaultHierarchy: LocalDateTable_fc9ef024-3e46-4367-a11d-7d98f52d09e6.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column last_order_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 6e031d70-1691-45ff-b1fe-c25362bb4a6c
+		summarizeBy: none
+		sourceColumn: last_order_date
+
+		variation Variation
+			isDefault
+			relationship: f59d641d-742a-402f-9ab3-6f9a486ed974
+			defaultHierarchy: LocalDateTable_8efba53b-3775-4ec9-9148-bce06059ea24.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column avg_order_value
+		dataType: double
+		lineageTag: 74586afb-454e-4ff4-87d6-11c9e6ba3f55
+		summarizeBy: sum
+		sourceColumn: avg_order_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column first_name
+		dataType: string
+		lineageTag: 8c0f200a-347d-4bed-a168-6f6a4af63762
+		summarizeBy: none
+		sourceColumn: first_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column last_name
+		dataType: string
+		lineageTag: 51db23d2-d50e-4b16-8b42-ea66630c505c
+		summarizeBy: none
+		sourceColumn: last_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column city
+		dataType: string
+		lineageTag: 5ffda0c4-0b80-4b81-8c9f-00ca8e100551
+		summarizeBy: none
+		sourceColumn: city
+
+		annotation SummarizationSetBy = Automatic
+
+	column state
+		dataType: string
+		lineageTag: f1a22c6a-afe1-483e-95e0-ff549ee60527
+		summarizeBy: none
+		sourceColumn: state
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_name = customer_lifetime_value[first_name] & " " & customer_lifetime_value[last_name]
+		dataType: string
+		lineageTag: 9b8f0c2e-6a4d-4f71-9c3a-2d5e8b1f7a64
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition customer_lifetime_value = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("olympic-data-ondemand.sql.azuresynapse.net", "bikestore_db"),
+				    dbo_customer_lifetime_value = Source{[Schema="dbo",Item="customer_lifetime_value"]}[Data]
+				in
+				    dbo_customer_lifetime_value
+
+	annotation PBI_ResultType = Table
+

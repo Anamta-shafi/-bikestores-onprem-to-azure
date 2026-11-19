@@ -1,0 +1,72 @@
+table Calendar
+	lineageTag: 2077a56e-a31e-4094-bccd-afdd6992afeb
+	dataCategory: Time
+
+	column Date
+		dataType: dateTime
+		isKey
+		formatString: Long Date
+		lineageTag: 4d9db229-6f8f-48f8-a4b8-5edc834eeb1b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Year
+		dataType: string
+		displayFolder: Calendar
+		lineageTag: 7f366681-3184-4a28-81c3-04476c9f815c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = User
+
+	column 'Month Number'
+		dataType: int64
+		formatString: 0
+		displayFolder: Calendar
+		lineageTag: 47553559-8470-4176-a9db-6f6aa1e095eb
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Month Number]
+
+		annotation SummarizationSetBy = User
+
+	column 'Month Name'
+		dataType: string
+		displayFolder: Calendar
+		lineageTag: 11255f77-1738-4265-8737-677535243d76
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Month Name]
+		sortByColumn: 'Month Number'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year-Month
+		dataType: string
+		displayFolder: Calendar
+		lineageTag: 463e3598-f4bb-441c-a9e6-87d610393796
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Year-Month]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Calendar = calculated
+		mode: import
+		source =
+				ADDCOLUMNS (
+				    CALENDAR ( MIN ( fact_sales[order_date] ), MAX ( fact_sales[order_date] ) ),
+				    "Year", FORMAT ( [Date], "yyyy" ),
+				    "Month Number", MONTH ( [Date] ),
+				    "Month Name", FORMAT ( [Date], "MMMM" ),
+				    "Year-Month", FORMAT ( [Date], "yyyy-MM" )
+				)
+
+	annotation PBI_ResultType = Table
+

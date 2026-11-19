@@ -1,0 +1,75 @@
+table top_products
+	lineageTag: 5626b0b9-3913-4a8c-96b6-42534302b3cc
+
+	column product_id
+		dataType: int64
+		formatString: 0
+		lineageTag: a6588207-f051-4449-8bb3-ed93ecdd9bac
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_name
+		dataType: string
+		lineageTag: 39782b4e-838c-4edd-bb14-2fc9673a0fb5
+		summarizeBy: none
+		sourceColumn: product_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column brand_name
+		dataType: string
+		lineageTag: 40c304ce-991f-4e54-b50f-df43d6696be7
+		summarizeBy: none
+		sourceColumn: brand_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_name
+		dataType: string
+		lineageTag: f62433d3-2b28-4c5b-ad61-ac5100a7cddf
+		summarizeBy: none
+		sourceColumn: category_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_revenue
+		dataType: double
+		lineageTag: f794dcdd-a639-47f7-a228-382d6f0e3625
+		summarizeBy: none
+		sourceColumn: total_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column units_sold
+		dataType: int64
+		formatString: 0
+		lineageTag: 0b23d96a-f643-4f76-9e45-5261574cc30e
+		summarizeBy: none
+		sourceColumn: units_sold
+
+		annotation SummarizationSetBy = Automatic
+
+	column revenue_rank
+		dataType: int64
+		formatString: 0
+		lineageTag: c147f93c-daef-40e8-9007-b3a05749e540
+		summarizeBy: none
+		sourceColumn: revenue_rank
+
+		annotation SummarizationSetBy = Automatic
+
+	partition top_products = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("olympic-data-ondemand.sql.azuresynapse.net", "bikestore_db"),
+				    dbo_top_products = Source{[Schema="dbo",Item="top_products"]}[Data]
+				in
+				    dbo_top_products
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,43 @@
+relationship ef62ca01-97d8-4d35-8401-efb6c642ac61
+	joinOnDateBehavior: datePartOnly
+	fromColumn: customer_lifetime_value.first_order_date
+	toColumn: LocalDateTable_fc9ef024-3e46-4367-a11d-7d98f52d09e6.Date
+
+relationship f59d641d-742a-402f-9ab3-6f9a486ed974
+	joinOnDateBehavior: datePartOnly
+	fromColumn: customer_lifetime_value.last_order_date
+	toColumn: LocalDateTable_8efba53b-3775-4ec9-9148-bce06059ea24.Date
+
+relationship e21eeba9-cbf9-4d2f-996b-e78283a46572
+	joinOnDateBehavior: datePartOnly
+	fromColumn: daily_sales_summary.order_date
+	toColumn: LocalDateTable_ccfcb1d5-2a16-448c-94b4-b837c7b493fb.Date
+
+relationship df5ec71d-e4de-419e-af2e-2407ef900f60
+	isActive: false
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fact_sales.order_date
+	toColumn: LocalDateTable_13b1d692-a31a-4e1f-b01b-9d5204f46a0e.Date
+
+relationship 9bad13b8-25a1-4513-abdc-551fe4a9ef1b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: monthly_sales_summary.month_start
+	toColumn: LocalDateTable_8a7447d6-e6d2-4a4a-bea7-fd96c356ba46.Date
+
+relationship AutoDetected_db50c6d5-3c0c-4577-b8cb-43711d8e0d69
+	fromColumn: fact_sales.customer_id
+	toColumn: customer_lifetime_value.customer_id
+
+relationship AutoDetected_7743ffbb-4379-4a8c-9d7d-65a32a7624ce
+	fromColumn: fact_sales.store_id
+	toColumn: sales_by_store.store_id
+
+relationship AutoDetected_97b536e4-1a2f-4724-95be-0fbcf044103e
+	fromColumn: fact_sales.product_id
+	toColumn: top_products.product_id
+
+relationship e54662fe-bda5-4fb1-92a9-4c28c484ea8a
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fact_sales.order_date
+	toColumn: Calendar.Date
+

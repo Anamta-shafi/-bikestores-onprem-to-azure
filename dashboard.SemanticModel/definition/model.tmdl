@@ -1,0 +1,31 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-PK
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["customer_lifetime_value","daily_sales_summary","fact_sales","monthly_sales_summary","sales_by_store","top_products"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table customer_lifetime_value
+ref table DateTableTemplate_5f2e934e-0e04-425f-a4c5-ba28ea181ade
+ref table LocalDateTable_fc9ef024-3e46-4367-a11d-7d98f52d09e6
+ref table LocalDateTable_8efba53b-3775-4ec9-9148-bce06059ea24
+ref table daily_sales_summary
+ref table LocalDateTable_ccfcb1d5-2a16-448c-94b4-b837c7b493fb
+ref table fact_sales
+ref table LocalDateTable_13b1d692-a31a-4e1f-b01b-9d5204f46a0e
+ref table monthly_sales_summary
+ref table LocalDateTable_8a7447d6-e6d2-4a4a-bea7-fd96c356ba46
+ref table sales_by_store
+ref table top_products
+ref table Calendar
+
+ref cultureInfo en-US
+

@@ -1,0 +1,75 @@
+table sales_by_store
+	lineageTag: ebd186a9-91a6-401c-a778-87b014fb40f4
+
+	column store_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 59bab959-f224-427e-8f52-1d2ac78d942e
+		summarizeBy: none
+		sourceColumn: store_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_name
+		dataType: string
+		lineageTag: 916a55f0-7b6a-4f42-ad0d-00e3e88f399c
+		summarizeBy: none
+		sourceColumn: store_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_city
+		dataType: string
+		lineageTag: cefe2785-d1d7-4517-a5a9-cad099ee7eec
+		summarizeBy: none
+		sourceColumn: store_city
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_state
+		dataType: string
+		lineageTag: ce92689c-8ac4-4f69-ae5b-954cc5b4fb93
+		summarizeBy: none
+		sourceColumn: store_state
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_revenue
+		dataType: double
+		lineageTag: b3d4a9e2-a6b6-4e01-9f4a-e621bb4348d2
+		summarizeBy: none
+		sourceColumn: total_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column orders
+		dataType: int64
+		formatString: 0
+		lineageTag: b50bf46a-75f4-4e78-8afa-aa4c3459517a
+		summarizeBy: none
+		sourceColumn: orders
+
+		annotation SummarizationSetBy = Automatic
+
+	column units_sold
+		dataType: int64
+		formatString: 0
+		lineageTag: 6075fedc-63e3-442d-80f1-c0f471b2941b
+		summarizeBy: none
+		sourceColumn: units_sold
+
+		annotation SummarizationSetBy = Automatic
+
+	partition sales_by_store = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("olympic-data-ondemand.sql.azuresynapse.net", "bikestore_db"),
+				    dbo_sales_by_store = Source{[Schema="dbo",Item="sales_by_store"]}[Data]
+				in
+				    dbo_sales_by_store
+
+	annotation PBI_ResultType = Table
+
